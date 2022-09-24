@@ -3,9 +3,9 @@ import {NavLink} from "react-router-dom";
 
 function Navbar() {
     return <div className={classes.navbar}>
-        <div className={classes.link}><NavLink to='/profile'>PROFILE</NavLink></div>
-        <div className={classes.link}><NavLink to='/messages'>MESSAGES</NavLink></div>
-        <div className={classes.link}><NavLink to='/users'>USERS</NavLink></div>
+        <NavLink className={isActive => (isActive ? `${classes.active}` : `${classes.unselected}`)} to='/profile'>PROFILE</NavLink>
+        <NavLink className={isActive => (isActive ? `${classes.active}` : `${classes.unselected}`)} to='/messages'>MESSAGES</NavLink>
+        <NavLink className={isActive => (isActive ? `${classes.active}` : `${classes.unselected}`)} to='/users'>USERS</NavLink>
     </div>
 }
 

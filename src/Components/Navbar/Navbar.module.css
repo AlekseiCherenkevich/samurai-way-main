@@ -4,14 +4,20 @@
     padding: 20px;
 }
 
-.link {
+a {
     font-size: 1.3em;
     font-weight: bold;
-}
-
-.link a {
     width: 100px;
     padding: 5px;
     display: block;
     text-decoration: none;
 }
+
+a.unselected {
+    color: fuchsia;
+}
+
+a.active {
+    color: firebrick;
+}
+
