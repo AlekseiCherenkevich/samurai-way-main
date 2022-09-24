@@ -1,0 +1,31 @@
+.post {
+    height: 120px;
+    width: 100%;
+    background-color: honeydew;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.avatar {
+    height: 100px;
+    width: 100px;
+    background: url("https://i0.wp.com/3.bp.blogspot.com/-xp5VzwYRB3E/XDmHGpWlBFI/AAAAAAAAEsY/IkRPJbHMDyc2wJsOcYiaccbqIUlfc_H5wCHMYCw/s1600/ian-ramnarine-thinglink.jpg") no-repeat center;
+    background-size: cover;
+    border-radius: 50%;
+}
+
+.status {
+    padding: 10px;
+    background-color: bisque;
+    height: 100%;
+    width: 50%;
+}
+
+.location {
+    padding: 10px;
+    background-color: peachpuff;
+    height: 100%;
+    width: 20%;
+}

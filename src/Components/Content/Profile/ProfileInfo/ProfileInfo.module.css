@@ -1,0 +1,30 @@
+.profile_info {
+    padding: 20px;
+    background-color: burlywood;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 600px;
+    width: 100%;
+}
+
+.avatar {
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    background: url("https://papik.pro/en/uploads/posts/2022-06/1656081148_10-papik-pro-p-funny-pictures-on-avatars-11.jpg") no-repeat center;
+    background-size: cover;
+}
+
+.left_side {
+
+}
+
+.righ_side {
+    font-size: 1.4em;
+}
+
+.contacts {
+    list-style-type: none;
+    padding-left: 0;
+}

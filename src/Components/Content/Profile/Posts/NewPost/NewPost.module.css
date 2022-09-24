@@ -1,0 +1,19 @@
+.new_post {
+    width: 100%;
+    background-color: lemonchiffon;
+    padding: 10px;
+}
+
+.title {
+    font-size: 1.3em;
+}
+
+.wrapper {
+    display: flex;
+    align-items: flex-end;
+}
+
+.wrapper textarea {
+
+}
+
