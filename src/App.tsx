@@ -3,14 +3,17 @@ import './App.css';
 import Header from "./Components/Header/Header";
 import Content from "./Components/Content/Content";
 import Navbar from "./Components/Navbar/Navbar";
+import {BrowserRouter} from "react-router-dom";
 
 
 function App() {
     return (
         <div className="App">
-            <Header/>
-            <Navbar/>
-            <Content/>
+            <BrowserRouter>
+                <Header/>
+                <Navbar/>
+                <Content/>
+            </BrowserRouter>
         </div>
     );
 }
