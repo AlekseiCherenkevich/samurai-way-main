@@ -1,10 +1,14 @@
 import classes from './NewPost.module.css'
 
-function NewPost() {
+type NewPostPropsType = {
+    newPostText: string
+}
+
+function NewPost(props: NewPostPropsType) {
     return <div className={classes.new_post}>
         <div className={classes.title}>NEW POST</div>
         <div className={classes.wrapper}>
-            <textarea></textarea>
+            <textarea>{props.newPostText}</textarea>
             <button>ADD POST</button>
         </div>
     </div>

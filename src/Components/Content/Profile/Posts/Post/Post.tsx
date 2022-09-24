@@ -1,10 +1,17 @@
 import classes from './Post.module.css'
 
-function Post() {
+type PostPropsType = {
+    status: string,
+    location: string,
+    avatarSrc: string
+}
+
+function Post(props: PostPropsType) {
+    debugger
     return <div className={classes.post}>
-        <div className={classes.avatar}></div>
-        <div className={classes.status}>status...</div>
-        <div className={classes.location}>location...</div>
+        <div style={{backgroundImage: `${props.avatarSrc}`}} className={classes.avatar}></div>
+        <div className={classes.status}>{props.status}</div>
+        <div className={classes.location}>{props.location}</div>
     </div>
 }
 
