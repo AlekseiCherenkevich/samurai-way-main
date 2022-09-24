@@ -1,0 +1,18 @@
+
+.header {
+    grid-area: h;
+    background-color: plum;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+}
+
+
+.logo {
+    height: 70px;
+    width: 70px;
+    background: url("https://i.pinimg.com/474x/e5/d4/56/e5d456a4249cfa108ee55860f79d223c.jpg") center no-repeat;
+    background-size: contain;
+}
+
+
