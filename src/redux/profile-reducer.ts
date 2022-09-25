@@ -11,7 +11,8 @@ type InitialStateType = {
 export type PostType = {
     id: number,
     avatarSrc: string,
-    message: string
+    message: string,
+    likesCount: number
 }
 
 const initialState = {
@@ -20,12 +21,14 @@ const initialState = {
         {
             id: 1,
             avatarSrc: 'https://i0.wp.com/3.bp.blogspot.com/-xp5VzwYRB3E/XDmHGpWlBFI/AAAAAAAAEsY/IkRPJbHMDyc2wJsOcYiaccbqIUlfc_H5wCHMYCw/s1600/ian-ramnarine-thinglink.jpg',
-            message: 'yo man'
+            message: 'yo man',
+            likesCount: 12
         },
         {
             id: 2,
             avatarSrc: 'https://i0.wp.com/3.bp.blogspot.com/-xp5VzwYRB3E/XDmHGpWlBFI/AAAAAAAAEsY/IkRPJbHMDyc2wJsOcYiaccbqIUlfc_H5wCHMYCw/s1600/ian-ramnarine-thinglink.jpg',
-            message: 'hiiii'
+            message: 'hiiii',
+            likesCount: 3
         }
     ],
     idCounter: 3
@@ -47,7 +50,8 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
                         {
                             id: state.idCounter,
                             avatarSrc: 'https://i0.wp.com/3.bp.blogspot.com/-xp5VzwYRB3E/XDmHGpWlBFI/AAAAAAAAEsY/IkRPJbHMDyc2wJsOcYiaccbqIUlfc_H5wCHMYCw/s1600/ian-ramnarine-thinglink.jpg',
-                            message: state.newPostText
+                            message: state.newPostText,
+                            likesCount: 0
                         }],
                     newPostText: ''
                 }

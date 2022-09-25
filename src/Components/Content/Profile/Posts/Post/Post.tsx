@@ -4,7 +4,8 @@ type PostPropsType = {
     message: string,
     avatarSrc: string,
     deletePost: (id: number) => void,
-    id: number
+    id: number,
+    likesCount: number
 }
 
 function Post(props: PostPropsType) {
@@ -13,7 +14,11 @@ function Post(props: PostPropsType) {
     }
     return <div className={classes.post}>
         <div style={{backgroundImage: `${props.avatarSrc}`}} className={classes.avatar}></div>
-        <div className={classes.message}>{props.message}</div>
+        <div className={classes.middlePart}>
+            <div>{props.message}</div>
+            <div>{props.likesCount}</div>
+        </div>
+
         <button onClick={deletePost}>DELETE</button>
     </div>
 }

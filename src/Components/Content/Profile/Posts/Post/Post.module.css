@@ -16,9 +16,13 @@
     border-radius: 50%;
 }
 
-.message {
+.middlePart {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     padding: 10px;
     background-color: bisque;
     height: 100%;
-    width: 80%;
+    width: 65%;
+    font-size: 1.3em;
 }
