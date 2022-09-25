@@ -5,7 +5,8 @@ import {FriendType, MessageType, sendMessage, updateNewMessageText} from "../../
 
 type MapStatePropsType = {
     friends: Array<FriendType>,
-    messages: Array<MessageType>
+    messages: Array<MessageType>,
+    newMessageText: string
 }
 
 type MapDispatchPropsType = {
@@ -20,7 +21,9 @@ const mapStateToProps = (state: AppStateType) : MapStatePropsType => ({
     // @ts-ignore
     friends: state.messagesPage.friends,
     // @ts-ignore
-    messages: state.messagesPage.messages
+    messages: state.messagesPage.messages,
+    // @ts-ignore
+    newMessageText: state.messagesPage.newMessageText
 })
 
 const MessagesContainer = connect<MapStatePropsType, MapDispatchPropsType, OwnPropsType, AppStateType>

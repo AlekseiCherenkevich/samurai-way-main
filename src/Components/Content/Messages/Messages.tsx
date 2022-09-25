@@ -1,21 +1,24 @@
 import classes from './Messages.module.css'
 import {createRef} from "react";
-import {FriendType, MessageType} from "../../../redux/messages-reducer";
+import {FriendType, MessageType, sendMessage, updateNewMessageText} from "../../../redux/messages-reducer";
 
 
 
 type MessagesPropsType = {
     friends: Array<FriendType>,
-    messages: Array<MessageType>
+    messages: Array<MessageType>,
+    newMessageText: string,
+    updateNewMessageText: (text: string) => void,
+    sendMessage: () => void
 }
 
 function Messages(props: MessagesPropsType) {
-    const textArea = createRef()
+    const textAreaRef: any = createRef()
     const updateNewMessageText = () => {
-        console.log('changed')
+        props.updateNewMessageText(textAreaRef.current.value)
     }
     const sendMessage = () => {
-        console.log('send')
+        props.sendMessage()
     }
     return <div className={classes.messages}>
         <div className={classes.chat}>
@@ -27,7 +30,7 @@ function Messages(props: MessagesPropsType) {
             </div>
         </div>
         <div className={classes.new_message}>
-            <textarea onChange={updateNewMessageText}></textarea>
+            <textarea ref={textAreaRef} onChange={updateNewMessageText} value={props.newMessageText}></textarea>
             <button onClick={sendMessage}>ADD MESSAGE</button>
         </div>
     </div>
