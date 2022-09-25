@@ -1,0 +1,14 @@
+.messages {
+    display: flex;
+    flex-direction: column;
+    background-color: honeydew;
+}
+
+.chat {
+    display: flex;
+    background-color: bisque;
+}
+
+.new_message {
+    background-color: lightblue;
+}
