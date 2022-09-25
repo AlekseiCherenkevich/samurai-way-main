@@ -18,7 +18,7 @@ function NewPost(props: NewPostPropsType) {
     return <div className={classes.new_post}>
         <div className={classes.title}>NEW POST</div>
         <div className={classes.wrapper}>
-            <textarea ref={textareaRef} onChange={updateNewPostText}></textarea>
+            <textarea ref={textareaRef} onChange={updateNewPostText} value={props.newPostText}></textarea>
             <button onClick={addNewPost}>ADD POST</button>
         </div>
     </div>
