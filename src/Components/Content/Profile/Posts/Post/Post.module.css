@@ -16,16 +16,9 @@
     border-radius: 50%;
 }
 
-.status {
+.message {
     padding: 10px;
     background-color: bisque;
     height: 100%;
-    width: 50%;
-}
-
-.location {
-    padding: 10px;
-    background-color: peachpuff;
-    height: 100%;
-    width: 20%;
+    width: 80%;
 }

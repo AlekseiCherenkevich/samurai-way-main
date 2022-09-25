@@ -8,10 +8,9 @@ type PostsPropsType = {
 }
 
 function Posts(props: PostsPropsType) {
-    debugger
     return <div className={classes.posts}>
         <NewPostContainer/>
-        {props.posts.map(p => <Post key={p.id} status={p.status} location={p.location} avatarSrc={p.avatarSrc}/>)}
+        {props.posts.map(p => <Post key={p.id} message={p.message} avatarSrc={p.avatarSrc}/>)}
     </div>
 }
 
