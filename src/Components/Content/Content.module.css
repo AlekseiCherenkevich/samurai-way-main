@@ -2,4 +2,5 @@
     grid-area: c;
     background-color: silver;
     padding: 10px;
+    min-height: calc(100vh - 80px);
 }
