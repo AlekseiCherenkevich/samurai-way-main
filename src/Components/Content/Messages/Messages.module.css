@@ -12,3 +12,12 @@
 .new_message {
     background-color: lightblue;
 }
+
+.friend {
+    font-size: 1.4em;
+    font-weight: bold;
+}
+
+.message {
+    font-size: 1.4em;
+}
