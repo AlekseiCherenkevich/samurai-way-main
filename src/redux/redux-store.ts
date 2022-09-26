@@ -1,10 +1,12 @@
 import {combineReducers, createStore} from "redux";
 import {profileReducer} from "./profile-reducer";
 import {messagesReducer} from "./messages-reducer";
+import {usersReducer} from "./users-reducer"
 
 const rootReducer = combineReducers({
     profilePage: profileReducer,
-    messagesPage: messagesReducer
+    messagesPage: messagesReducer,
+    usersPage: usersReducer
 })
 
 const store = createStore(rootReducer)

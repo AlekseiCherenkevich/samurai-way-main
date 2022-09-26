@@ -1,7 +1,7 @@
 import classes from './Content.module.css'
 import Profile from "./Profile/Profile";
 import MessagesContainer from "./Messages/MessagesContainer";
-import Users from "./Users/Users";
+import UsersContainer from "./Users/UsersContainer";
 import {Route, Switch} from "react-router-dom";
 
 function Content() {
@@ -14,7 +14,7 @@ function Content() {
                 <MessagesContainer/>
             </Route>
             <Route path={'/users'}>
-                <Users/>
+                <UsersContainer/>
             </Route>
         </Switch>
     </div>
