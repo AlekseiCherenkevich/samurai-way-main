@@ -1,24 +1,26 @@
 import {connect} from "react-redux";
 import Users from "./Users";
 import {AppStateType} from "../../../redux/redux-store";
-import {setUsers, UserType} from "../../../redux/users-reducer";
+import {setUsers, follow, unfollow, UserType} from "../../../redux/users-reducer";
 
 type MapStatePropsType = {
     users: Array<UserType>
 }
 
 type MapDispatchPropsType = {
-    setUsers: (users: Array<UserType>) => void
+    setUsers: (users: Array<UserType>) => void,
+    follow: (id: number) => void,
+    unfollow: (id: number) => void
 }
 
 type OwnPropsType = {}
 
 
-const mapStateToProps = (state: AppStateType) => ({
+const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
     users: state.usersPage.users
 })
 
 const UsersContainer = connect<MapStatePropsType, MapDispatchPropsType, OwnPropsType, AppStateType>
-(mapStateToProps, {setUsers})(Users)
+(mapStateToProps, {setUsers, follow, unfollow})(Users)
 
 export default UsersContainer

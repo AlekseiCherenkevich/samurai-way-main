@@ -26,10 +26,18 @@
     justify-content: space-around;
 }
 
-button {
-    background-color: lightgreen;
-    color: black;
+.left_side button {
     border: none;
+}
+
+.unfollowButton {
+    color: white;
+    background-color: red;
+}
+
+.followButton {
+    color: black;
+    background-color: lightgreen;
 }
 
 .status {
