@@ -18,11 +18,8 @@ type OwnPropsType = {}
 
 
 const mapStateToProps = (state: AppStateType) : MapStatePropsType => ({
-    // @ts-ignore
     friends: state.messagesPage.friends,
-    // @ts-ignore
     messages: state.messagesPage.messages,
-    // @ts-ignore
     newMessageText: state.messagesPage.newMessageText
 })
 

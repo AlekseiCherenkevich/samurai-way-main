@@ -2,10 +2,10 @@ const UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT";
 const SEND_MESSAGE = "SEND-MESSAGE"
 
 type InitialStateType = {
-    friends: Array<any>,
-    messages: Array<any>,
+    friends: Array<FriendType>,
+    messages: Array<MessageType>,
     idCounter: number,
-    newMessageText: string
+    newMessageText: any
 }
 
 export type FriendType = {
@@ -32,7 +32,7 @@ const initialState: InitialStateType = {
         {id: 4, message: "when is ypur birthday?"}
     ],
     idCounter: 4,
-    newMessageText: 'hiiii'
+    newMessageText: ''
 }
 
 export const messagesReducer = (state: InitialStateType = initialState, action : ActionType) => {
@@ -47,7 +47,10 @@ export const messagesReducer = (state: InitialStateType = initialState, action :
             return {
                 ...state,
                 idCounter: state.idCounter += 1,
-                messages: [...state.messages, {id: state.idCounter, message: state.newMessageText}],
+                messages: [
+                    ...state.messages,
+                    {id: state.idCounter, message: state.newMessageText}
+                ],
                 newMessageText: ''
             }
         }
@@ -62,5 +65,5 @@ type ActionType = {
     text?: string
 }
 
-export const updateNewMessageText = (text: string) => ({type: UPDATE_NEW_MESSAGE_TEXT, text: text})
-export const sendMessage = () => ({type: SEND_MESSAGE})
+export const updateNewMessageText = (text: string): ActionType => ({type: UPDATE_NEW_MESSAGE_TEXT, text: text})
+export const sendMessage = (): ActionType => ({type: SEND_MESSAGE})

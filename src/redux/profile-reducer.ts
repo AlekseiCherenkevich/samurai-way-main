@@ -3,7 +3,7 @@ const ADD_NEW_POST = "ADD-NEW-POST"
 const DELETE_POST = "DELETE-POST"
 
 type InitialStateType = {
-    newPostText: any,
+    newPostText: string,
     posts: Array<PostType>,
     idCounter: number
 }

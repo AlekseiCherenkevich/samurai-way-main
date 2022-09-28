@@ -9,17 +9,17 @@ type NewPostPropsType = {
 
 function NewPost(props: NewPostPropsType) {
     const textareaRef: any = createRef()
-    const updateNewPostText = () => {
+    const onNewPostTextUpdate = () => {
         props.updateNewPostText(textareaRef.current.value)
     }
-    const addNewPost = () => {
+    const onNewPostAdd = () => {
         props.addNewPost()
     }
     return <div className={classes.new_post}>
         <div className={classes.title}>NEW POST</div>
         <div className={classes.wrapper}>
-            <textarea ref={textareaRef} onChange={updateNewPostText} value={props.newPostText}></textarea>
-            <button onClick={addNewPost}>ADD POST</button>
+            <textarea ref={textareaRef} onChange={onNewPostTextUpdate} value={props.newPostText}></textarea>
+            <button onClick={onNewPostAdd}>ADD POST</button>
         </div>
     </div>
 }

@@ -15,24 +15,24 @@ type MessagesPropsType = {
 
 function Messages(props: MessagesPropsType) {
     const textAreaRef: any = createRef()
-    const updateNewMessageText = () => {
+    const onNewMessageUpdate = () => {
         props.updateNewMessageText(textAreaRef.current.value)
     }
-    const sendMessage = () => {
+    const onMessageUpdate = () => {
         props.sendMessage()
     }
     return <div className={classes.messages}>
         <div className={classes.chat}>
             <div className={classes.friends}>
-                {props.friends.map((f: any) => <NavLink to={`/messages/${f.id}`} className={classes.friend}>{f.name}</NavLink>)}
+                {props.friends.map((f: FriendType) => <NavLink to={`/messages/${f.id}`} className={classes.friend}>{f.name}</NavLink>)}
             </div>
             <div className={classes.messages}>
-                {props.messages.map((m: any) => <div className={classes.message}>{m.message}</div>)}
+                {props.messages.map((m: MessageType) => <div className={classes.message}>{m.message}</div>)}
             </div>
         </div>
         <div className={classes.new_message}>
-            <textarea ref={textAreaRef} onChange={updateNewMessageText} value={props.newMessageText}></textarea>
-            <button onClick={sendMessage}>ADD MESSAGE</button>
+            <textarea ref={textAreaRef} onChange={onNewMessageUpdate} value={props.newMessageText}></textarea>
+            <button onClick={onMessageUpdate}>ADD MESSAGE</button>
         </div>
     </div>
 }
