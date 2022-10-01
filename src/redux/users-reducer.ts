@@ -1,21 +1,25 @@
-const SET_USERS = "SET-USERS"
+const SET_USERS = "SET_USERS"
 const FOLLOW = "FOLLOW"
 const UNFOLLOW = "UNFOLLOW"
-const SET_TOTAL_USERS_COUNT = "SET-TOTAL-USERS-COUNT"
-const SET_CURRENT_PAGE = "SET-CURRENT-PAGE"
+const SET_TOTAL_USERS_COUNT = "SET_TOTAL_USERS_COUNT"
+const SET_CURRENT_PAGE = "SET_CURRENT_PAGE"
+const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING"
+
 
 type InitialStateType = {
-    users: Array<UserType>,
-    totalUsersCount: number,
-    pageSize: number,
+    users: Array<UserType>
+    totalUsersCount: number
+    pageSize: number
     currentPage: number
+    isFetching: boolean
 }
 
 const initialState: InitialStateType = {
     users: [],
     totalUsersCount: 0,
     pageSize: 20,
-    currentPage: 1
+    currentPage: 1,
+    isFetching: false
 }
 
 export type UserType = {
@@ -74,6 +78,12 @@ export const usersReducer = (state: InitialStateType = initialState, action: Act
                 currentPage: action.currentPage
             }
         }
+        case TOGGLE_IS_FETCHING: {
+            return {
+                ...state,
+                isFetching: action.isFetching
+            }
+        }
         default: {
             return state
         }
@@ -81,11 +91,12 @@ export const usersReducer = (state: InitialStateType = initialState, action: Act
 }
 
 type ActionType = {
-    type: string,
-    id?: number,
-    users?: Array<UserType>,
-    totalUsersCount?: number,
+    type: string
+    id?: number
+    users?: Array<UserType>
+    totalUsersCount?: number
     currentPage?: number
+    isFetching?: boolean
 }
 
 export const setUsers = (users: Array<UserType>): ActionType => ({type: SET_USERS, users: users})
@@ -93,4 +104,5 @@ export const follow = (id: number) => ({type: FOLLOW, id: id})
 export const unfollow = (id: number) => ({type: UNFOLLOW, id: id})
 export const setTotalUsersCount = (totalUsersCount: number) => ({type: SET_TOTAL_USERS_COUNT, totalUsersCount: totalUsersCount})
 export const setCurrentPage = (currentPage: number) => ({type: SET_CURRENT_PAGE, currentPage: currentPage})
+export const toggleIsFetching = (isFetching: boolean) => ({type: TOGGLE_IS_FETCHING, isFetching: isFetching})
 
