@@ -4,6 +4,8 @@ import User from "./User/User";
 import {UserType} from "../../../redux/users-reducer";
 import classes from './Users.module.css'
 import Preloader from "../../Common/Preloader/Preloader";
+import {AppStateType} from "../../../redux/redux-store";
+import {NavLink} from "react-router-dom";
 
 type UsersPropsType = {
     users: Array<UserType>
@@ -19,10 +21,7 @@ type UsersPropsType = {
     toggleIsFetching: (isFetching: boolean) => void
 }
 
-class Users extends React.Component<UsersPropsType, any> {
-    constructor(props: UsersPropsType) {
-        super(props);
-    }
+class Users extends React.Component<UsersPropsType, AppStateType> {
     componentDidMount() {
         this.props.toggleIsFetching(true)
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${this.props.currentPage}`)
@@ -34,6 +33,7 @@ class Users extends React.Component<UsersPropsType, any> {
             })
         this.props.toggleIsFetching(false)
     }
+
     onCurrentPageChange = (currentPage: number) => {
         this.props.toggleIsFetching(true)
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${currentPage}`)
@@ -44,6 +44,7 @@ class Users extends React.Component<UsersPropsType, any> {
             })
         this.props.toggleIsFetching(false)
     }
+
     render() {
         let pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize)
         const pages = []
@@ -54,22 +55,27 @@ class Users extends React.Component<UsersPropsType, any> {
             {this.props.isFetching
                 ? <Preloader/>
                 : <div>
-                    {pages.map(p => <span className={p === this.props.currentPage ? classes.selected_page : classes.unselected_page} onClick={() => this.onCurrentPageChange(p)}> {p} </span>)}
+                    {pages.map(p => <span
+                        className={p === this.props.currentPage ? classes.selected_page : classes.unselected_page}
+                        onClick={() => this.onCurrentPageChange(p)}> {p} </span>)}
                     {
                         this.props.users.map((u: UserType) =>
-                            <User
-                                unfollow={this.props.unfollow}
-                                follow={this.props.follow}
-                                followed={u.followed}
-                                name={u.name}
-                                key={u.id}
-                                id={u.id}
-                                photo={u.photos.small}
-                                status={u.status}
-                            />
+                            <NavLink to={`/profile/${u.id}`}>
+                                <User
+                                    unfollow={this.props.unfollow}
+                                    follow={this.props.follow}
+                                    followed={u.followed}
+                                    name={u.name}
+                                    key={u.id}
+                                    id={u.id}
+                                    photo={u.photos.small}
+                                    status={u.status}
+                                />
+                            </NavLink>
                         )
                     }
-                </div>}
+                </div>
+            }
         </>
     }
 }
