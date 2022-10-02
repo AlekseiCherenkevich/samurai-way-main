@@ -1,5 +1,5 @@
 .profile_info {
-    padding: 20px;
+    padding: 20px 100px 20px 20px;
     background-color: burlywood;
     display: flex;
     justify-content: space-between;
@@ -11,8 +11,7 @@
 .avatar {
     height: 200px;
     width: 200px;
-    border-radius: 50%;
-    background: url("https://papik.pro/en/uploads/posts/2022-06/1656081148_10-papik-pro-p-funny-pictures-on-avatars-11.jpg") no-repeat center;
+    background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRatcm_du_J02VPfWWd1OEQahSIFE_-nY1aDw&usqp=CAU") no-repeat center;
     background-size: cover;
 }
 
