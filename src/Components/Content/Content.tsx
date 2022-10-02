@@ -7,7 +7,7 @@ import ProfileContainer from "./Profile/ProfileContainer";
 function Content() {
     return <div className={classes.content}>
         <Switch>
-            <Route path={'/profile'}>
+            <Route path={'/profile/:userId?'}>
                 <ProfileContainer/>
             </Route>
             <Route path={'/messages'}>
