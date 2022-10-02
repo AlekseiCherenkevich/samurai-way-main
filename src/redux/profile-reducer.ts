@@ -1,11 +1,35 @@
-const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT"
-const ADD_NEW_POST = "ADD-NEW-POST"
-const DELETE_POST = "DELETE-POST"
+const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT'
+const ADD_NEW_POST = 'ADD_NEW_POST'
+const DELETE_POST = 'DELETE_POST'
+const SET_USER_PROFILE = 'SET_USER_PROFILE'
 
 type InitialStateType = {
-    newPostText: string,
-    posts: Array<PostType>,
+    newPostText: string
+    posts: Array<PostType>
     idCounter: number
+    profile: ProfileType | null
+}
+
+export type ProfileType = {
+    aboutMe: string | null,
+    contacts: {
+        facebook: string | null
+        website: string | null
+        vk: string | null
+        twitter: string | null
+        instagram: string | null
+        youtube: string | null
+        github: string | null
+        mainLink: string | null
+    }
+    lookingForAJob: boolean,
+    lookingForAJobDescription: string | null
+    fullName: string | null
+    userId: number | null
+    photos: {
+        small: string | null
+        large: string | null
+    }
 }
 
 export type PostType = {
@@ -31,7 +55,28 @@ const initialState = {
             likesCount: 3
         }
     ],
-    idCounter: 3
+    idCounter: 3,
+    profile: {
+        aboutMe: null,
+        contacts: {
+            facebook: null,
+            website: null,
+            vk: null,
+            twitter: null,
+            instagram: null,
+            youtube: null,
+            github: null,
+            mainLink: null
+        },
+        lookingForAJob: false,
+        lookingForAJobDescription: null,
+        fullName: null,
+        userId: null,
+        photos: {
+            small: null,
+            large: null
+        }
+    }
 }
 
 export const profileReducer = (state: InitialStateType = initialState, action: ActionType) => {
@@ -66,6 +111,12 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
                 posts: [...state.posts.filter(p => p.id !== action.id)]
             }
         }
+        case SET_USER_PROFILE: {
+            return {
+                ...state,
+                profile: {...action.profile}
+                }
+            }
         default: {
             return state
         }
@@ -73,11 +124,13 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
 }
 
 type ActionType = {
-    type: string,
-    text?: string,
+    type: string
+    text?: string
     id?: number
+    profile?: ProfileType
 }
 
 export const updateNewPostText = (text: string) => ({type: UPDATE_NEW_POST_TEXT, text: text})
 export const addNewPost = () => ({type: ADD_NEW_POST})
 export const deletePost = (id: number) => ({type: DELETE_POST, id: id})
+export const setUserProfile = (profile: ProfileType) => ({type: SET_USER_PROFILE, profile})
