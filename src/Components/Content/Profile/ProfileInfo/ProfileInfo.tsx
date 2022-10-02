@@ -6,7 +6,6 @@ interface IProfileInfoProps {
 }
 
 function ProfileInfo(props: IProfileInfoProps) {
-    console.log(props.profile)
     return <div className={classes.profile_info}>
         <div className={classes.left_side}>
             <h1>{props.profile.fullName}</h1>
