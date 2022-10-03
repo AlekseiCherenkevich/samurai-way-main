@@ -24,7 +24,9 @@ type UsersPropsType = {
 class Users extends React.Component<UsersPropsType, AppStateType> {
     componentDidMount() {
         this.props.toggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${this.props.currentPage}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${this.props.currentPage}`, {
+            withCredentials: true
+        })
             .then(res => {
                 const users = res.data.items
                 this.props.setUsers(users)
@@ -36,7 +38,9 @@ class Users extends React.Component<UsersPropsType, AppStateType> {
 
     onCurrentPageChange = (currentPage: number) => {
         this.props.toggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${currentPage}`)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${currentPage}`, {
+            withCredentials: true
+        })
             .then(res => {
                 const users = res.data.items
                 this.props.setUsers(users)
@@ -60,18 +64,16 @@ class Users extends React.Component<UsersPropsType, AppStateType> {
                         onClick={() => this.onCurrentPageChange(p)}> {p} </span>)}
                     {
                         this.props.users.map((u: UserType) =>
-                            <NavLink to={`/profile/${u.id}`}>
-                                <User
-                                    unfollow={this.props.unfollow}
-                                    follow={this.props.follow}
-                                    followed={u.followed}
-                                    name={u.name}
-                                    key={u.id}
-                                    id={u.id}
-                                    photo={u.photos.small}
-                                    status={u.status}
-                                />
-                            </NavLink>
+                            <User
+                                unfollow={this.props.unfollow}
+                                follow={this.props.follow}
+                                followed={u.followed}
+                                name={u.name}
+                                key={u.id}
+                                id={u.id}
+                                photo={u.photos.small}
+                                status={u.status}
+                            />
                         )
                     }
                 </div>
