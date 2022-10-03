@@ -1,6 +1,6 @@
 import classes from './User.module.css'
-import axios from "axios";
 import {NavLink} from "react-router-dom";
+import API from "../../../../api/api";
 
 interface IUserProps {
     id: number,
@@ -14,25 +14,17 @@ interface IUserProps {
 
 const User = ({name, photo, status, followed, follow, unfollow, id}: IUserProps) => {
     const onFollowClick = () => {
-        axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${id}`, {}, {
-            withCredentials: true,
-            headers: {
-                'API-KEY': '49958ebf-f227-43ac-a4ad-f0bc4550a02a'
-            }
-        }).then(res => {
-            if (res.data.resultCode === 0) {
+        API.follow(id).then(data => {
+            if (data.resultCode === 0) {
                 follow(id)
             }
         })
     }
     const onUnfollowCLick = () => {
-        axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${id}`, {
-            withCredentials: true,
-            headers: {
-                'API-KEY': '49958ebf-f227-43ac-a4ad-f0bc4550a02a'
+        API.unfollow(id).then(data => {
+            if (data.resultCode === 0) {
+                unfollow(id)
             }
-        }).then(res => {
-            unfollow(id)
         })
     }
     return (

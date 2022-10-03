@@ -1,8 +1,8 @@
 import classes from './Header.module.css'
 import React from "react";
-import axios from "axios";
 import {AuthDataType} from "../../redux/auth-reducer";
 import {AppStateType} from "../../redux/redux-store";
+import API from "../../api/api";
 
 type HeaderPropsType = {
     login: string | null
@@ -12,13 +12,9 @@ type HeaderPropsType = {
 
 class Header extends React.Component<HeaderPropsType, AppStateType> {
     componentDidMount() {
-        axios.get('https://social-network.samuraijs.com/api/1.0/auth/me', {
-            withCredentials: true
-        })
-            .then(res => {
-                if (res.data.resultCode === 0) {
-                    const data = res.data.data
-                    this.props.setAuthUserData(data)
+        API.getAuthUserData().then(data => {
+                if (data.resultCode === 0) {
+                    this.props.setAuthUserData(data.data)
                 }
             })
     }

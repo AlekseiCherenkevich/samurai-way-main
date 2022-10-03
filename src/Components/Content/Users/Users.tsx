@@ -1,11 +1,10 @@
 import React from "react";
-import axios from "axios";
 import User from "./User/User";
 import {UserType} from "../../../redux/users-reducer";
 import classes from './Users.module.css'
 import Preloader from "../../Common/Preloader/Preloader";
 import {AppStateType} from "../../../redux/redux-store";
-import {NavLink} from "react-router-dom";
+import API from "../../../api/api";
 
 type UsersPropsType = {
     users: Array<UserType>
@@ -24,13 +23,11 @@ type UsersPropsType = {
 class Users extends React.Component<UsersPropsType, AppStateType> {
     componentDidMount() {
         this.props.toggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${this.props.currentPage}`, {
-            withCredentials: true
-        })
-            .then(res => {
-                const users = res.data.items
+        API.getUsers(this.props.pageSize, this.props.currentPage)
+            .then(data => {
+                const users = data.items
                 this.props.setUsers(users)
-                const totalUsersCount = res.data.totalCount
+                const totalUsersCount = data.totalCount
                 this.props.setTotalUsersCount(totalUsersCount)
             })
         this.props.toggleIsFetching(false)
@@ -38,11 +35,9 @@ class Users extends React.Component<UsersPropsType, AppStateType> {
 
     onCurrentPageChange = (currentPage: number) => {
         this.props.toggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${currentPage}`, {
-            withCredentials: true
-        })
-            .then(res => {
-                const users = res.data.items
+        API.getUsers(this.props.pageSize, currentPage)
+            .then(data => {
+                const users = data.items
                 this.props.setUsers(users)
                 this.props.setCurrentPage(currentPage)
             })
