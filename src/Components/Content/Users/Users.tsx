@@ -12,12 +12,14 @@ type UsersPropsType = {
     currentPage: number
     pageSize: number
     isFetching: boolean
+    followingInProgress: Array<number>
     follow: (id: number) => void
     unfollow: (id: number) => void
     setUsers: (users: Array<UserType>) => void
     setTotalUsersCount: (totalUsersCount: number) => void
     setCurrentPage: (currentPage: number) => void
     toggleIsFetching: (isFetching: boolean) => void
+    toggleFollowingProgress: (isFetching: boolean, id: number) => void
 }
 
 class Users extends React.Component<UsersPropsType, AppStateType> {
@@ -60,14 +62,16 @@ class Users extends React.Component<UsersPropsType, AppStateType> {
                     {
                         this.props.users.map((u: UserType) =>
                             <User
-                                unfollow={this.props.unfollow}
-                                follow={this.props.follow}
                                 followed={u.followed}
                                 name={u.name}
                                 key={u.id}
                                 id={u.id}
                                 photo={u.photos.small}
                                 status={u.status}
+                                followingInProgress={this.props.followingInProgress}
+                                unfollow={this.props.unfollow}
+                                follow={this.props.follow}
+                                toggleFollowingProgress={this.props.toggleFollowingProgress}
                             />
                         )
                     }
