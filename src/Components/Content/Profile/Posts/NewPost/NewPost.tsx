@@ -7,7 +7,7 @@ type NewPostPropsType = {
     addNewPost: () => void
 }
 
-function NewPost(props: NewPostPropsType) {
+const NewPost: React.FC<NewPostPropsType> = (props) => {
     const textareaRef: any = createRef()
     const onNewPostTextUpdate = () => {
         props.updateNewPostText(textareaRef.current.value)

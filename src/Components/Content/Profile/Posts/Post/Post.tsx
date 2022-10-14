@@ -8,7 +8,7 @@ type PostPropsType = {
     likesCount: number
 }
 
-function Post(props: PostPropsType) {
+const Post: React.FC<PostPropsType> = (props) => {
     const deletePost = () => {
         props.deletePost(props.id)
     }

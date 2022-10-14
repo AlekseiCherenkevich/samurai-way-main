@@ -8,10 +8,16 @@ type PostsPropsType = {
     deletePost: (id: number) => void
 }
 
-function Posts(props: PostsPropsType) {
+const Posts: React.FC<PostsPropsType> = (props) => {
     return <div className={classes.posts}>
         <NewPostContainer/>
-        {props.posts.map(p => <Post likesCount={p.likesCount} deletePost={props.deletePost} id={p.id} key={p.id} message={p.message} avatarSrc={p.avatarSrc}/>)}
+        {props.posts.map(p => <Post
+            likesCount={p.likesCount}
+            deletePost={props.deletePost}
+            id={p.id} key={p.id}
+            message={p.message}
+            avatarSrc={p.avatarSrc}
+        />)}
     </div>
 }
 

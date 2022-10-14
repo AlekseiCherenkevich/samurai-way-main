@@ -5,7 +5,7 @@ interface IProfileInfoProps {
     profile: ProfileType
 }
 
-function ProfileInfo(props: IProfileInfoProps) {
+const ProfileInfo: React.FC<IProfileInfoProps> = (props) => {
     return <div className={classes.profile_info}>
         <div className={classes.left_side}>
             <h1>{props.profile.fullName}</h1>

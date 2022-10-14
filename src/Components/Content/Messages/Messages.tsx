@@ -1,5 +1,5 @@
 import classes from './Messages.module.css'
-import {createRef} from "react";
+import React, {createRef} from "react";
 import {FriendType, MessageType} from "../../../redux/messages-reducer";
 import { NavLink } from 'react-router-dom';
 
@@ -13,7 +13,7 @@ type MessagesPropsType = {
     sendMessage: () => void
 }
 
-function Messages(props: MessagesPropsType) {
+const Messages: React.FC<MessagesPropsType> = (props) => {
     const textAreaRef: any = createRef()
     const onNewMessageUpdate = () => {
         props.updateNewMessageText(textAreaRef.current.value)
