@@ -4,7 +4,6 @@ import {UserType} from "../../../redux/users-reducer";
 import classes from './Users.module.css'
 import Preloader from "../../Common/Preloader/Preloader";
 import {AppStateType} from "../../../redux/redux-store";
-import API from "../../../api/api";
 
 type UsersPropsType = {
     users: Array<UserType>
@@ -15,35 +14,16 @@ type UsersPropsType = {
     followingInProgress: Array<number>
     follow: (id: number) => void
     unfollow: (id: number) => void
-    setUsers: (users: Array<UserType>) => void
-    setTotalUsersCount: (totalUsersCount: number) => void
-    setCurrentPage: (currentPage: number) => void
-    toggleIsFetching: (isFetching: boolean) => void
-    toggleFollowingProgress: (isFetching: boolean, id: number) => void
+    getUsers: (pageSize: number, currentPage: number) => void
 }
 
 class Users extends React.Component<UsersPropsType, AppStateType> {
     componentDidMount() {
-        this.props.toggleIsFetching(true)
-        API.getUsers(this.props.pageSize, this.props.currentPage)
-            .then(data => {
-                const users = data.items
-                this.props.setUsers(users)
-                const totalUsersCount = data.totalCount
-                this.props.setTotalUsersCount(totalUsersCount)
-            })
-        this.props.toggleIsFetching(false)
+        this.props.getUsers(this.props.pageSize, this.props.currentPage)
     }
 
     onCurrentPageChange = (currentPage: number) => {
-        this.props.toggleIsFetching(true)
-        API.getUsers(this.props.pageSize, currentPage)
-            .then(data => {
-                const users = data.items
-                this.props.setUsers(users)
-                this.props.setCurrentPage(currentPage)
-            })
-        this.props.toggleIsFetching(false)
+        this.props.getUsers(this.props.pageSize, currentPage)
     }
 
     render() {
@@ -71,7 +51,6 @@ class Users extends React.Component<UsersPropsType, AppStateType> {
                                 followingInProgress={this.props.followingInProgress}
                                 unfollow={this.props.unfollow}
                                 follow={this.props.follow}
-                                toggleFollowingProgress={this.props.toggleFollowingProgress}
                             />
                         )
                     }

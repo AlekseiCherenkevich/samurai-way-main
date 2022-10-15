@@ -1,6 +1,6 @@
 import classes from './User.module.css'
 import {NavLink} from "react-router-dom";
-import API from "../../../../api/api";
+import {unfollow} from "../../../../redux/users-reducer";
 
 interface IUserProps {
     id: number,
@@ -9,29 +9,16 @@ interface IUserProps {
     status: string | null,
     followed: boolean,
     followingInProgress: Array<number>
-    follow: (id: number) => void,
     unfollow: (id: number) => void
-    toggleFollowingProgress: (isFetching: boolean, id: number) => void
+    follow: (id: number) => void
 }
 
 const User: React.FC<IUserProps> = (props ) => {
     const onFollowClick = () => {
-        props.toggleFollowingProgress(true, props.id)
-        API.follow(props.id).then(data => {
-            if (data.resultCode === 0) {
-                props.follow(props.id)
-            }
-            props.toggleFollowingProgress(false, props.id)
-        })
+        props.follow(props.id)
     }
     const onUnfollowCLick = () => {
-        props.toggleFollowingProgress(true, props.id)
-        API.unfollow(props.id).then(data => {
-            if (data.resultCode === 0) {
-                props.unfollow(props.id)
-            }
-            props.toggleFollowingProgress(false, props.id)
-        })
+        unfollow(props.id)
     }
     return (
         <div className={classes.user}>
