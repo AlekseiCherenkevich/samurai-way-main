@@ -3,7 +3,7 @@ import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import PostsContainer from "./Posts/PostsContainer";
 import {ProfileType} from "../../../redux/profile-reducer";
 import {AppStateType} from "../../../redux/redux-store";
-import {RouteComponentProps} from "react-router-dom";
+import {Redirect, RouteComponentProps} from "react-router-dom";
 import Preloader from "../../Common/Preloader/Preloader";
 
 type PathParamsType = {
@@ -13,6 +13,7 @@ type PathParamsType = {
 type ProfilePropsType = RouteComponentProps<PathParamsType> & {
     profile: ProfileType
     isFetching: boolean
+    isAuth: boolean
     getProfile: (userId: string) => void
 }
 
@@ -25,6 +26,7 @@ class Profile extends React.Component<ProfilePropsType, AppStateType> {
         this.props.getProfile(userId)
     }
     render() {
+        if (!this.props.isAuth) return <Redirect to='/login'/>
         return(
             <>
                 {this.props.isFetching

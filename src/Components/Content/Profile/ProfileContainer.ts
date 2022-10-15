@@ -7,6 +7,7 @@ import {withRouter} from "react-router-dom";
 type MapStatePropsType = {
     profile: ProfileType
     isFetching: boolean
+    isAuth: boolean
 }
 
 type MapDispatchPropsType = {
@@ -17,7 +18,8 @@ type OwnPropsType = {}
 
 const mapStateToProps = (state: AppStateType) : MapStatePropsType => ({
     profile: state.profilePage.profile,
-    isFetching: state.profilePage.isFetching
+    isFetching: state.profilePage.isFetching,
+    isAuth: state.auth.isAuth
 })
 
 const WithUrlDataComponent = withRouter(Profile)
