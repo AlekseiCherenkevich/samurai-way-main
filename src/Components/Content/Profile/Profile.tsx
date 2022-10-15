@@ -1,10 +1,10 @@
 import React from "react";
-import axios from "axios";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import PostsContainer from "./Posts/PostsContainer";
 import {ProfileType} from "../../../redux/profile-reducer";
 import {AppStateType} from "../../../redux/redux-store";
 import {RouteComponentProps} from "react-router-dom";
+import Preloader from "../../Common/Preloader/Preloader";
 
 type PathParamsType = {
     userId: string
@@ -12,7 +12,8 @@ type PathParamsType = {
 
 type ProfilePropsType = RouteComponentProps<PathParamsType> & {
     profile: ProfileType
-    setUserProfile: (profile: ProfileType) => void
+    isFetching: boolean
+    getProfile: (userId: string) => void
 }
 
 class Profile extends React.Component<ProfilePropsType, AppStateType> {
@@ -21,17 +22,18 @@ class Profile extends React.Component<ProfilePropsType, AppStateType> {
         if (!userId) {
             userId = '2'
         }
-        axios.get('https://social-network.samuraijs.com/api/1.0/profile/' + userId)
-            .then(res => {
-                const response = res.data
-                this.props.setUserProfile(response)
-            })
+        this.props.getProfile(userId)
     }
     render() {
         return(
             <>
-                <ProfileInfo profile={this.props.profile} />
-                <PostsContainer/>
+                {this.props.isFetching
+                    ? <Preloader/>
+                    : <>
+                        <ProfileInfo profile={this.props.profile} />
+                        <PostsContainer/>
+                    </>
+                }
             </>
         )
     }

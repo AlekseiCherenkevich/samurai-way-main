@@ -1,37 +1,43 @@
+import {profileAPI} from "../api/api";
+import {ThunkAction} from "redux-thunk";
+import {AppStateType} from "./redux-store";
+
 const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT'
 const ADD_NEW_POST = 'ADD_NEW_POST'
 const DELETE_POST = 'DELETE_POST'
 const SET_USER_PROFILE = 'SET_USER_PROFILE'
+const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
 
 type InitialStateType = {
     newPostText: string
     posts: Array<PostType>
     idCounter: number
-    profile: ProfileType | null
+    profile: ProfileType
+    isFetching: boolean
 }
-
+type ContactsType = {
+    facebook: string | null
+    website: string | null
+    vk: string | null
+    twitter: string | null
+    instagram: string | null
+    youtube: string | null
+    github: string | null
+    mainLink: string | null
+}
+type PhotosType = {
+    small: string | null
+    large: string | null
+}
 export type ProfileType = {
     aboutMe: string | null,
-    contacts: {
-        facebook: string | null
-        website: string | null
-        vk: string | null
-        twitter: string | null
-        instagram: string | null
-        youtube: string | null
-        github: string | null
-        mainLink: string | null
-    }
+    contacts: ContactsType
     lookingForAJob: boolean,
     lookingForAJobDescription: string | null
     fullName: string | null
     userId: number | null
-    photos: {
-        small: string | null
-        large: string | null
-    }
+    photos: PhotosType
 }
-
 export type PostType = {
     id: number,
     avatarSrc: string,
@@ -39,7 +45,7 @@ export type PostType = {
     likesCount: number
 }
 
-const initialState = {
+const initialState: InitialStateType = {
     newPostText: '',
     posts: [
         {
@@ -76,10 +82,11 @@ const initialState = {
             small: null,
             large: null
         }
-    }
+    },
+    isFetching: false
 }
 
-export const profileReducer = (state: InitialStateType = initialState, action: ActionType) => {
+export const profileReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case UPDATE_NEW_POST_TEXT: {
             return {
@@ -117,20 +124,53 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
                 profile: {...action.profile}
                 }
             }
+        case TOGGLE_IS_FETCHING: {
+            return {
+                ...state,
+                isFetching: action.isFetching
+            }
+        }
         default: {
             return state
         }
     }
 }
 
-type ActionType = {
-    type: string
-    text?: string
-    id?: number
-    profile?: ProfileType
+type UpdateNewPostText = {
+    type: "UPDATE_NEW_POST_TEXT",
+    text: string
+}
+type AddNewPostType = {
+    type: "ADD_NEW_POST"
+}
+type DeletePostType = {
+    type: "DELETE_POST"
+    id: number
+}
+type SetUserProfileType = {
+    type: "SET_USER_PROFILE"
+    profile: ProfileType
+}
+type ToggleIsFetchingType = {
+    type: "TOGGLE_IS_FETCHING"
+    isFetching: boolean
 }
 
-export const updateNewPostText = (text: string) => ({type: UPDATE_NEW_POST_TEXT, text: text})
-export const addNewPost = () => ({type: ADD_NEW_POST})
-export const deletePost = (id: number) => ({type: DELETE_POST, id: id})
-export const setUserProfile = (profile: ProfileType) => ({type: SET_USER_PROFILE, profile})
+type ActionsType = UpdateNewPostText | AddNewPostType | DeletePostType | SetUserProfileType | ToggleIsFetchingType
+
+export const updateNewPostText = (text: string): UpdateNewPostText => ({type: UPDATE_NEW_POST_TEXT, text: text})
+export const addNewPost = (): AddNewPostType => ({type: ADD_NEW_POST})
+export const deletePost = (id: number): DeletePostType => ({type: DELETE_POST, id: id})
+export const setUserProfile = (profile: ProfileType): SetUserProfileType => ({type: SET_USER_PROFILE, profile})
+export const toggleIsFetching = (isFetching: boolean): ToggleIsFetchingType => ({type: TOGGLE_IS_FETCHING, isFetching})
+
+export const getProfile = (userId: string): ThunkAction<void, AppStateType, unknown, ActionsType> => {
+    return (dispatch, getState) => {
+        dispatch(toggleIsFetching(true))
+        profileAPI.getProfile(userId)
+            .then(res => {
+                dispatch(setUserProfile(res))
+                dispatch(toggleIsFetching(false))
+            })
+    }
+}
