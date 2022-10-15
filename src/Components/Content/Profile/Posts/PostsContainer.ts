@@ -14,7 +14,7 @@ type MapDispatchPropsType = {
 type OwnPropsType = {}
 
 const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
-    posts: state.profilePage['posts']
+    posts: state.profilePage.posts
 })
 
 const PostsContainer = connect<MapStatePropsType, MapDispatchPropsType, OwnPropsType, AppStateType>
