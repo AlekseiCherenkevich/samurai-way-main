@@ -3,6 +3,7 @@ import MessagesContainer from "./Messages/MessagesContainer";
 import UsersContainer from "./Users/UsersContainer";
 import {Route, Switch} from "react-router-dom";
 import ProfileContainer from "./Profile/ProfileContainer";
+import Login from "../Login/Login";
 
 function Content() {
     return <div className={classes.content}>
@@ -15,6 +16,9 @@ function Content() {
             </Route>
             <Route path={'/users'}>
                 <UsersContainer/>
+            </Route>
+            <Route path={'/login'}>
+                <Login/>
             </Route>
         </Switch>
     </div>
