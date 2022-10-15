@@ -24,10 +24,10 @@ const Messages: React.FC<MessagesPropsType> = (props) => {
     return <div className={classes.messages}>
         <div className={classes.chat}>
             <div className={classes.friends}>
-                {props.friends.map((f: FriendType) => <NavLink to={`/messages/${f.id}`} className={classes.friend}>{f.name}</NavLink>)}
+                {props.friends.map((f: FriendType) => <NavLink key={f.id} to={`/messages/${f.id}`} className={classes.friend}>{f.name}</NavLink>)}
             </div>
             <div className={classes.messages}>
-                {props.messages.map((m: MessageType) => <div className={classes.message}>{m.message}</div>)}
+                {props.messages.map((m: MessageType) => <div key={m.id} className={classes.message}>{m.message}</div>)}
             </div>
         </div>
         <div className={classes.new_message}>
