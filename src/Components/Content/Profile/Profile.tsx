@@ -20,7 +20,7 @@ class Profile extends React.Component<ProfilePropsType, AppStateType> {
     componentDidMount() {
         let userId = this.props.match.params.userId
         if (!userId) {
-            userId = '2'
+            userId = this.props.profile.userId
         }
         this.props.getProfile(userId)
     }

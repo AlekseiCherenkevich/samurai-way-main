@@ -35,7 +35,7 @@ export type ProfileType = {
     lookingForAJob: boolean,
     lookingForAJobDescription: string | null
     fullName: string | null
-    userId: number | null
+    userId: string
     photos: PhotosType
 }
 export type PostType = {
@@ -77,7 +77,7 @@ const initialState: InitialStateType = {
         lookingForAJob: false,
         lookingForAJobDescription: null,
         fullName: null,
-        userId: null,
+        userId: '2',
         photos: {
             small: null,
             large: null
