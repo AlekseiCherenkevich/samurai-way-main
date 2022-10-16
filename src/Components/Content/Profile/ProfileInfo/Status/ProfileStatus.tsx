@@ -14,7 +14,7 @@ type LocalStateType = {
 class ProfileStatus extends React.Component<ProfileStatusPropsType, LocalStateType> {
     state: LocalStateType = {
         isEditMode: false,
-        status: ''
+        status: this.props.status
     }
     activateEditMode = () => {
         if (this.props.userId == '26054') {
@@ -29,10 +29,18 @@ class ProfileStatus extends React.Component<ProfileStatusPropsType, LocalStateTy
     onChangeStatusText = (e: FormEvent<HTMLInputElement>) => {
         this.setState({status: e.currentTarget.value})
     }
+    componentDidUpdate(prevProps: Readonly<ProfileStatusPropsType>, prevState: Readonly<LocalStateType>, snapshot?: any) {
+        if (prevProps.status !== this.props.status) {
+            this.setState({
+                status: this.props.status
+            })
+        }
+    }
+
     render() {
         return <>
             {!this.state.isEditMode
-                ? <h3 onDoubleClick={this.activateEditMode}>{this.props.status === null ? '+++++' : this.props.status}</h3>
+                ? <h3 onDoubleClick={this.activateEditMode}>{this.props.status === '' ? '+++++' : this.props.status}</h3>
                 : <input onChange={this.onChangeStatusText} autoFocus={true} onBlur={this.deactivateEditMode} type="text" value={this.state.status}/>
             }
 
