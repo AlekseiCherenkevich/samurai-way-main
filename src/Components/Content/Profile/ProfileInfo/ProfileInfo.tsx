@@ -1,8 +1,11 @@
 import classes from './ProfileInfo.module.css'
 import {ProfileType} from "../../../../redux/profile-reducer";
+import ProfileStatus from "./Status/ProfileStatus";
 
 interface IProfileInfoProps {
     profile: ProfileType
+    status: string
+    updateStatus: (status: string) => void
 }
 
 const ProfileInfo: React.FC<IProfileInfoProps> = (props) => {
@@ -27,6 +30,7 @@ const ProfileInfo: React.FC<IProfileInfoProps> = (props) => {
                 <li><b>github</b>: {props.profile.contacts.github}</li>
                 <li><b>mainLink</b>: {props.profile.contacts.mainLink}</li>
             </ul>
+            <ProfileStatus updateStatus={props.updateStatus} userId={props.profile.userId} status={props.status}/>
         </div>
     </div>
 }

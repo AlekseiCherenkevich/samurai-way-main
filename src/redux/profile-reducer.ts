@@ -7,12 +7,14 @@ const ADD_NEW_POST = 'ADD_NEW_POST'
 const DELETE_POST = 'DELETE_POST'
 const SET_USER_PROFILE = 'SET_USER_PROFILE'
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING'
+const SET_PROFILE_STATUS = 'SET_PROFILE_STATUS'
 
 type InitialStateType = {
     newPostText: string
     posts: Array<PostType>
     idCounter: number
     profile: ProfileType
+    status: string
     isFetching: boolean
 }
 type ContactsType = {
@@ -81,8 +83,9 @@ const initialState: InitialStateType = {
         photos: {
             small: null,
             large: null
-        }
+        },
     },
+    status: '',
     isFetching: false
 }
 
@@ -130,6 +133,12 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
                 isFetching: action.isFetching
             }
         }
+        case SET_PROFILE_STATUS: {
+            return {
+                ...state,
+                status: action.status
+            }
+        }
         default: {
             return state
         }
@@ -155,14 +164,19 @@ type ToggleIsFetchingType = {
     type: "TOGGLE_IS_FETCHING"
     isFetching: boolean
 }
+type SetProfileStatusType = {
+    type: 'SET_PROFILE_STATUS'
+    status: string
+}
 
-type ActionsType = UpdateNewPostText | AddNewPostType | DeletePostType | SetUserProfileType | ToggleIsFetchingType
+type ActionsType = UpdateNewPostText | AddNewPostType | DeletePostType | SetUserProfileType | ToggleIsFetchingType | SetProfileStatusType
 
 export const updateNewPostText = (text: string): UpdateNewPostText => ({type: UPDATE_NEW_POST_TEXT, text: text})
 export const addNewPost = (): AddNewPostType => ({type: ADD_NEW_POST})
 export const deletePost = (id: number): DeletePostType => ({type: DELETE_POST, id: id})
-export const setUserProfile = (profile: ProfileType): SetUserProfileType => ({type: SET_USER_PROFILE, profile})
-export const toggleIsFetching = (isFetching: boolean): ToggleIsFetchingType => ({type: TOGGLE_IS_FETCHING, isFetching})
+const setUserProfile = (profile: ProfileType): SetUserProfileType => ({type: SET_USER_PROFILE, profile})
+const toggleIsFetching = (isFetching: boolean): ToggleIsFetchingType => ({type: TOGGLE_IS_FETCHING, isFetching})
+const setProfileStatus = (status: string): SetProfileStatusType => ({type: SET_PROFILE_STATUS, status})
 
 export const getProfile = (userId: string): ThunkAction<void, AppStateType, unknown, ActionsType> => {
     return (dispatch, getState) => {
@@ -173,4 +187,20 @@ export const getProfile = (userId: string): ThunkAction<void, AppStateType, unkn
                 dispatch(toggleIsFetching(false))
             })
     }
+}
+
+export const getStatus = (userId: string): ThunkAction<void, AppStateType, unknown, ActionsType> => (dispatch, getState) => {
+    profileAPI.getStatus(userId)
+        .then(res => {
+            dispatch(setProfileStatus(res))
+        })
+}
+
+export const updateStatus = (status: string): ThunkAction<void, AppStateType, unknown, ActionsType> => (dispatch, getState) => {
+    profileAPI.updateStatus(status)
+        .then(res => {
+            if (res.resultCode === 0) {
+                dispatch(setProfileStatus(status))
+            }
+    })
 }
