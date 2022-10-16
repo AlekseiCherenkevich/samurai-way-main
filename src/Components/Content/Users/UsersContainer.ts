@@ -2,6 +2,7 @@ import {connect} from "react-redux";
 import Users from "./Users";
 import {AppStateType} from "../../../redux/redux-store";
 import {follow, getUsers, unfollow, UserType} from "../../../redux/users-reducer";
+import {compose} from "redux";
 
 type MapStatePropsType = {
     users: Array<UserType>
@@ -11,15 +12,12 @@ type MapStatePropsType = {
     isFetching: boolean
     followingInProgress: Array<number>
 }
-
 type MapDispatchPropsType = {
     getUsers: (pageSize: number, currentPage: number) => void
     follow: (id: number) => void
     unfollow: (id: number) => void
 }
-
 type OwnPropsType = {}
-
 
 const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
     users: state.usersPage.users,
@@ -30,7 +28,7 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
     followingInProgress: state.usersPage.followingInProgress
 })
 
-const UsersContainer = connect<MapStatePropsType, MapDispatchPropsType, OwnPropsType, AppStateType>
-(mapStateToProps, {getUsers, follow, unfollow})(Users)
-
-export default UsersContainer
+export default compose<React.ComponentType>(
+    connect<MapStatePropsType, MapDispatchPropsType, OwnPropsType, AppStateType>
+    (mapStateToProps, {getUsers, follow, unfollow})
+)(Users)
