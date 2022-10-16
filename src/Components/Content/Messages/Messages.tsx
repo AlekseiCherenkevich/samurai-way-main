@@ -1,13 +1,12 @@
 import classes from './Messages.module.css'
 import React, {createRef} from "react";
 import {FriendType, MessageType} from "../../../redux/messages-reducer";
-import {NavLink, Redirect} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 
 type MessagesPropsType = {
     friends: Array<FriendType>,
     messages: Array<MessageType>,
     newMessageText: string,
-    isAuth: boolean
     updateNewMessageText: (text: string) => void,
     sendMessage: () => void
 }
@@ -20,8 +19,6 @@ const Messages: React.FC<MessagesPropsType> = (props) => {
     const onMessageUpdate = () => {
         props.sendMessage()
     }
-
-    if (!props.isAuth) return <Redirect to='/login'/>
 
     return <div className={classes.messages}>
         <div className={classes.chat}>
