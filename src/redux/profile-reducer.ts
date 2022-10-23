@@ -2,7 +2,6 @@ import {profileAPI} from "../api/api";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "./redux-store";
 
-const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT'
 const ADD_NEW_POST = 'ADD_NEW_POST'
 const DELETE_POST = 'DELETE_POST'
 const SET_USER_PROFILE = 'SET_USER_PROFILE'
@@ -91,29 +90,19 @@ const initialState: InitialStateType = {
 
 export const profileReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
-        case UPDATE_NEW_POST_TEXT: {
-            return {
-                ...state, newPostText: action.text
-            }
-        }
         case ADD_NEW_POST: {
-            if (state.newPostText.length > 0) {
-                return {
-                    ...state,
-                    idCounter: state.idCounter += 1,
-                    posts: [...state.posts,
-                        {
-                            id: state.idCounter,
-                            avatarSrc: 'https://i0.wp.com/3.bp.blogspot.com/-xp5VzwYRB3E/XDmHGpWlBFI/AAAAAAAAEsY/IkRPJbHMDyc2wJsOcYiaccbqIUlfc_H5wCHMYCw/s1600/ian-ramnarine-thinglink.jpg',
-                            message: state.newPostText,
-                            likesCount: 0
-                        }],
-                    newPostText: ''
-                }
-            } else {
-                return state
+            return {
+                ...state,
+                idCounter: state.idCounter += 1,
+                posts: [...state.posts,
+                    {
+                        id: state.idCounter,
+                        avatarSrc: 'https://i0.wp.com/3.bp.blogspot.com/-xp5VzwYRB3E/XDmHGpWlBFI/AAAAAAAAEsY/IkRPJbHMDyc2wJsOcYiaccbqIUlfc_H5wCHMYCw/s1600/ian-ramnarine-thinglink.jpg',
+                        message: action.newPostText,
+                        likesCount: 0
+                    }],
+                newPostText: ''
             }
-
         }
         case DELETE_POST: {
             return {
@@ -145,12 +134,9 @@ export const profileReducer = (state: InitialStateType = initialState, action: A
     }
 }
 
-type UpdateNewPostText = {
-    type: "UPDATE_NEW_POST_TEXT",
-    text: string
-}
 type AddNewPostType = {
-    type: "ADD_NEW_POST"
+    type: "ADD_NEW_POST",
+    newPostText: string
 }
 type DeletePostType = {
     type: "DELETE_POST"
@@ -169,10 +155,9 @@ type SetProfileStatusType = {
     status: string
 }
 
-type ActionsType = UpdateNewPostText | AddNewPostType | DeletePostType | SetUserProfileType | ToggleIsFetchingType | SetProfileStatusType
+type ActionsType = AddNewPostType | DeletePostType | SetUserProfileType | ToggleIsFetchingType | SetProfileStatusType
 
-export const updateNewPostText = (text: string): UpdateNewPostText => ({type: UPDATE_NEW_POST_TEXT, text: text})
-export const addNewPost = (): AddNewPostType => ({type: ADD_NEW_POST})
+export const addNewPost = (newPostText: string): AddNewPostType => ({type: ADD_NEW_POST, newPostText})
 export const deletePost = (id: number): DeletePostType => ({type: DELETE_POST, id: id})
 const setUserProfile = (profile: ProfileType): SetUserProfileType => ({type: SET_USER_PROFILE, profile})
 const toggleIsFetching = (isFetching: boolean): ToggleIsFetchingType => ({type: TOGGLE_IS_FETCHING, isFetching})

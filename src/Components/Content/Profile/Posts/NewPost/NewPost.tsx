@@ -1,26 +1,19 @@
 import classes from './NewPost.module.css'
-import {createRef} from "react";
+import NewPostForm from './NewPostForm/NewPostForm'
 
 type NewPostPropsType = {
-    newPostText: string,
-    updateNewPostText: (text: string) => void,
-    addNewPost: () => void
+    // newPostText: string,
+    // updateNewPostText: (text: string) => void,
+    addNewPost: (newPostText: string) => void
 }
 
 const NewPost: React.FC<NewPostPropsType> = (props) => {
-    const textareaRef: any = createRef()
-    const onNewPostTextUpdate = () => {
-        props.updateNewPostText(textareaRef.current.value)
-    }
-    const onNewPostAdd = () => {
-        props.addNewPost()
+    const addNewPost = (formData: any) => {
+        props.addNewPost(formData.newPostText)
     }
     return <div className={classes.new_post}>
-        <div className={classes.title}>NEW POST</div>
-        <div className={classes.wrapper}>
-            <textarea ref={textareaRef} onChange={onNewPostTextUpdate} value={props.newPostText}></textarea>
-            <button onClick={onNewPostAdd}>ADD POST</button>
-        </div>
+        <h2 className={classes.title}>NEW POST</h2>
+        <NewPostForm onSubmit={addNewPost}/>
     </div>
 }
 
