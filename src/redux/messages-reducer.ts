@@ -1,11 +1,9 @@
-const UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT";
-const SEND_MESSAGE = "SEND-MESSAGE"
+const ADD_MESSAGE = "SEND-MESSAGE"
 
 type InitialStateType = {
     friends: Array<FriendType>,
     messages: Array<MessageType>,
-    idCounter: number,
-    newMessageText: any
+    idCount: number
 }
 
 export type FriendType = {
@@ -31,27 +29,19 @@ const initialState: InitialStateType = {
         {id: 3, message: "im fine, thank you"},
         {id: 4, message: "when is ypur birthday?"}
     ],
-    idCounter: 4,
-    newMessageText: ''
+    idCount: 4
 }
 
 export const messagesReducer = (state: InitialStateType = initialState, action : ActionType) => {
     switch (action.type) {
-        case UPDATE_NEW_MESSAGE_TEXT: {
+        case ADD_MESSAGE: {
             return {
                 ...state,
-                newMessageText: action.text
-            }
-        }
-        case SEND_MESSAGE: {
-            return {
-                ...state,
-                idCounter: state.idCounter += 1,
+                idCounter: state.idCount += 1,
                 messages: [
                     ...state.messages,
-                    {id: state.idCounter, message: state.newMessageText}
-                ],
-                newMessageText: ''
+                    {id: state.idCount, message: action.newMessageText}
+                ]
             }
         }
         default: {
@@ -62,8 +52,7 @@ export const messagesReducer = (state: InitialStateType = initialState, action :
 
 type ActionType = {
     type: string,
-    text?: string
+    newMessageText: string
 }
 
-export const updateNewMessageText = (text: string): ActionType => ({type: UPDATE_NEW_MESSAGE_TEXT, text: text})
-export const sendMessage = (): ActionType => ({type: SEND_MESSAGE})
+export const addNewMessage = (newMessageText: string): ActionType => ({type: ADD_MESSAGE, newMessageText})

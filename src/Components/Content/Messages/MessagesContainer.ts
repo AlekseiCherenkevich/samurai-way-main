@@ -1,32 +1,29 @@
 import {connect} from "react-redux";
 import {AppStateType} from "../../../redux/redux-store";
 import Messages from "./Messages";
-import {FriendType, MessageType, sendMessage, updateNewMessageText} from "../../../redux/messages-reducer";
+import {FriendType, MessageType, addNewMessage} from "../../../redux/messages-reducer";
 import {withAuthRedirect} from "../../../hoc/withAuthRedirect";
 import { compose } from "redux";
 import React from "react";
 
 type MapStatePropsType = {
     friends: Array<FriendType>,
-    messages: Array<MessageType>,
-    newMessageText: string
+    messages: Array<MessageType>
 }
 
 type MapDispatchPropsType = {
-    updateNewMessageText: (text: string) => void,
-    sendMessage: () => void
+    addNewMessage: (newMessageText: string) => void
 }
 
 type OwnPropsType = {}
 
 const mapStateToProps = (state: AppStateType) : MapStatePropsType => ({
     friends: state.messagesPage.friends,
-    messages: state.messagesPage.messages,
-    newMessageText: state.messagesPage.newMessageText
+    messages: state.messagesPage.messages
 })
 
 export default compose<React.ComponentType>(
     connect<MapStatePropsType, MapDispatchPropsType, OwnPropsType, AppStateType>
-    (mapStateToProps, {updateNewMessageText, sendMessage}),
+    (mapStateToProps, {addNewMessage}),
     withAuthRedirect
 )(Messages)
