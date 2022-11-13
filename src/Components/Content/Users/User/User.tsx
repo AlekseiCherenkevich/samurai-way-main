@@ -1,6 +1,5 @@
 import classes from './User.module.css'
 import {NavLink} from "react-router-dom";
-import {unfollow} from "../../../../redux/users-reducer";
 
 interface IUserProps {
     id: number,
@@ -18,7 +17,7 @@ const User: React.FC<IUserProps> = (props ) => {
         props.follow(props.id)
     }
     const onUnfollowCLick = () => {
-        unfollow(props.id)
+        props.unfollow(props.id)
     }
     return (
         <div className={classes.user}>
