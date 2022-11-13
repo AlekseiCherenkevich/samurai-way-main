@@ -14,6 +14,7 @@ type ProfilePropsType = RouteComponentProps<PathParamsType> & {
     profile: ProfileType
     isFetching: boolean
     status: string
+    userId: number
     getProfile: (userId: string) => void
     getStatus: (userId: string) => void
     updateStatus: (status: string) => void
@@ -23,11 +24,10 @@ class Profile extends React.Component<ProfilePropsType, AppStateType> {
     componentDidMount() {
         let userId = this.props.match.params.userId
         if (!userId) {
-            userId = this.props.profile.userId
+            userId = String(this.props.userId)
         }
         this.props.getProfile(userId)
         this.props.getStatus((userId))
-        console.log(this.props.status)
     }
     render() {
         return(

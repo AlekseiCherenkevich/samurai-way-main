@@ -10,6 +10,7 @@ type MapStatePropsType = {
     profile: ProfileType
     isFetching: boolean
     status: string
+    userId: number | null
 }
 type MapDispatchPropsType = {
     getProfile: (userId: string) => void
@@ -21,7 +22,8 @@ type OwnPropsType = {}
 const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
     profile: state.profilePage.profile,
     isFetching: state.profilePage.isFetching,
-    status: state.profilePage.status
+    status: state.profilePage.status,
+    userId: state.auth.data.id
 })
 
 export default compose<React.ComponentType>(
