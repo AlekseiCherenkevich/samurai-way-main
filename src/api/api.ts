@@ -1,4 +1,6 @@
 import axios from "axios";
+import {FormDataType} from "../Components/Login/Login";
+
 
 const instanceAPI = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
@@ -26,6 +28,17 @@ export const authAPI = {
     getAuthUserData() {
         return instanceAPI.get('auth/me')
             .then(res => res.data)
+    },
+    login(formData: FormDataType) {
+        return instanceAPI.post(`auth/login`, {
+            email: formData.email,
+            password: formData.password,
+            rememberMe: formData.rememberMe = false
+        }).then(res => res.data)
+    },
+    logout() {
+        return instanceAPI.delete('auth/login')
+            .then(res => res)
     }
 }
 export const profileAPI = {
